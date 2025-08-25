@@ -1,0 +1,145 @@
+/*import { Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const Navigation = ({ isScrolled, activeSection, isMenuOpen, setIsMenuOpen, scrollToSection }) => {
+  const navItems = ['home', 'about', 'projects', 'contact'];
+
+  return (
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      isScrolled ? 'glass border-b border-slate-700/50' : 'bg-transparent'
+    }`}>
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <motion.div 
+          className="text-2xl font-bold text-gradient-primary"
+          whileHover={{ scale: 1.05 }}
+        >
+          Geoffrey Musau
+        </motion.div>
+        
+        <div className="hidden md:flex space-x-8">
+          {navItems.map((item) => (
+            <motion.button
+              key={item}
+              onClick={() => scrollToSection(item)}
+              className={`capitalize transition-colors duration-300 hover:text-primary-400 ${
+                activeSection === item ? 'text-primary-400 font-semibold' : 'text-slate-300'
+              }`}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item}
+            </motion.button>
+          ))}
+        </div>
+        
+        <button 
+          className="md:hidden text-slate-300 hover:text-primary-400 transition-colors" 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+      
+      {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="md:hidden mt-4 py-4 glass rounded-lg mx-4"
+        >
+          {navItems.map((item) => (
+            <button
+              key={item}
+              onClick={() => scrollToSection(item)}
+              className="block w-full text-left px-6 py-3 capitalize hover:text-primary-400 hover:bg-slate-700/50 transition-colors"
+            >
+              {item}
+            </button>
+          ))}
+        </motion.div>
+      )}
+    </nav>
+  );
+};
+
+export default Navigation;*/
+
+import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const Navigation = ({ isScrolled, activeSection, isMenuOpen, setIsMenuOpen, scrollToSection }) => {
+  const navItems = ['home', 'about', 'projects', 'contact'];
+
+  return (
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'glass border-b border-slate-700/50' : 'bg-transparent'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        
+        {/* Brand Name */}
+        <motion.div
+          className="text-2xl font-bold text-gradient-primary leading-none"
+          whileHover={{ scale: 1.05 }}
+        >
+          Geoffrey Musau
+        </motion.div>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex gap-8 items-center">
+          {navItems.map((item) => (
+            <motion.button
+              key={item}
+              onClick={() => scrollToSection(item)}
+              className={`capitalize transition-colors duration-300 hover:text-primary-400 ${
+                activeSection === item
+                  ? 'text-primary-400 font-semibold'
+                  : 'text-slate-300'
+              }`}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {item}
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          className="md:hidden text-slate-300 hover:text-primary-400 transition-colors"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden mt-2 py-4 glass rounded-lg mx-4"
+          >
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => {
+                  scrollToSection(item);
+                  setIsMenuOpen(false);
+                }}
+                className="block w-full text-left px-6 py-3 capitalize hover:text-primary-400 hover:bg-slate-700/50 transition-colors"
+              >
+                {item}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
+
+export default Navigation;
