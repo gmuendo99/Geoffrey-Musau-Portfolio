@@ -19,7 +19,7 @@ const HeroSection = ({ scrollToSection }) => {
          <div className="w-36 h-36 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 p-2 shadow-2xl">
   <div className="w-full h-full rounded-full overflow-hidden">
     <img 
-      src="src/images/IMG_20211216_130343_102.jpg" 
+      src="public/assets/IMG_20211216_130343_102.jpg" 
       alt="Geoffrey Musau - Profile picture"
       className="w-full h-full object-cover"
     />
